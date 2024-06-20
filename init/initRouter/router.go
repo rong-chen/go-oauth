@@ -2,7 +2,10 @@ package initRouter
 
 import (
 	"github.com/gin-gonic/gin"
-	user2 "go-oauth/apiv2/user"
+	"go-oauth/api/oauth_authorization_codes"
+	"go-oauth/api/oauth_clients"
+	"go-oauth/api/oauth_user"
+	"go-oauth/api_resource/resource_user"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
@@ -13,11 +16,13 @@ type RouterInterface interface {
 }
 
 var RouterList = []RouterInterface{
-	new(user2.Router),
+	new(oauth_clients.Router),
+	new(oauth_user.Router),
+	new(oauth_authorization_codes.Router),
+	new(resource_user.Router),
 }
 
 func InitRouter(e *gin.Engine) {
-	// 所有其他路由都返回 index.html
 	e.StaticFile("/", "./dist/index.html") // 前端网页入口页面
 	e.Static("/assets", "./dist/assets")
 	e.Use(Cors())
@@ -28,7 +33,6 @@ func InitRouter(e *gin.Engine) {
 
 	r := e.Group("")
 	r.Any("/api/*any", reverseProxy("127.0.0.1"))
-
 	for _, routerInterface := range RouterList {
 		routerInterface.InitRouter(r)
 	}

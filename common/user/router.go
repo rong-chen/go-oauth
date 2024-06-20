@@ -6,9 +6,8 @@ type Router struct {
 }
 
 func (Router) InitRouter(group *gin.RouterGroup) {
-	r := group.Group("user")
+	r := group.Group("resource_user")
 	{
 		r.POST("/register", Register)
-		r.POST("/company", Login)
 	}
 }

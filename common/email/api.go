@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	"go-oauth/api_web/user"
+	"go-oauth/common/user"
 	"go-oauth/global"
 	"go-oauth/utils"
 	"time"
