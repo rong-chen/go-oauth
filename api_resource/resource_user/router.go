@@ -1,6 +1,8 @@
 package resource_user
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+)
 
 type Router struct {
 }

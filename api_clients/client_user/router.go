@@ -1,4 +1,4 @@
-package oauth_user
+package client_user
 
 import "github.com/gin-gonic/gin"
 
@@ -6,10 +6,9 @@ type Router struct {
 }
 
 func (Router) InitRouter(r *gin.RouterGroup) {
-	router := r.Group("oauth_user")
+	router := r.Group("client_user")
 	{
+		//router.POST("/register", Register)
 		router.POST("/login", Login)
-		router.POST("/register", Register)
-
 	}
 }

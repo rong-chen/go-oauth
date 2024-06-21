@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	"go-oauth/common/user"
+	"go-oauth/api/oauth_user"
 	"go-oauth/global"
 	"go-oauth/utils"
 	"time"
@@ -24,7 +24,7 @@ func Send(c *gin.Context) {
 		c.JSON(200, global.BackResp(400, "请勿重复发起验证码", err))
 		return
 	}
-	info := user.FindUser("email", p.Email)
+	info := oauth_user.FindUserRow("email", p.Email)
 	if info.Id != uuid.Nil {
 		c.JSON(200, global.BackResp(400, "邮箱已注册", err))
 		return

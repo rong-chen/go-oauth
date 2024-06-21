@@ -1,11 +1,11 @@
-package user
+package client_user
 
 import (
 	"fmt"
 	"go-oauth/global"
 )
 
-func FindUser(key string, val string) (info *Info) {
+func FindUserRow(key string, val string) (info Info) {
 	global.MySqlDb.Where(fmt.Sprintf("%s = ?", key), val).Find(&info)
 	return
 }

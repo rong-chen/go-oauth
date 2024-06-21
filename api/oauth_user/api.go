@@ -53,3 +53,37 @@ func Login(c *gin.Context) {
 	resp := fmt.Sprintf("%s?authorization_code=%s&state=%s&expires_time=%s", lp.RedirectUrl, code, lp.State, time.Now().Add(5*time.Minute).Format("2006-01-02T15:04:05.000Z"))
 	c.JSON(200, global.BackResp(302, "登录成功", resp))
 }
+
+func Register(c *gin.Context) {
+	// 注册用户
+	var cp RegisterInfo
+	err := c.BindJSON(&cp)
+	if err != nil {
+		c.JSON(200, global.BackResp(400, err.Error(), nil))
+		return
+	}
+	code, _ := global.RedisDb.Get(c, cp.Email).Result()
+	global.RedisDb.Del(c, cp.Email)
+	if code != cp.Code {
+		c.JSON(200, global.BackResp(400, "验证码错误", nil))
+		return
+	}
+	password, _ := utils.HashPassword(cp.Password)
+	var info = &Info{
+		Email:    cp.Email,
+		Password: password,
+		Phone:    cp.Phone,
+		Username: cp.Username,
+		Nickname: cp.Nickname,
+		Sex:      cp.Sex,
+		Birthday: cp.Birthday,
+	}
+
+	info.Id, _ = uuid.NewUUID()
+	err = Create(info)
+	if err != nil {
+		c.JSON(200, global.BackResp(400, err.Error(), nil))
+		return
+	}
+	c.JSON(200, global.BackResp(200, "注册成功", nil))
+}

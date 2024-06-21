@@ -7,8 +7,10 @@ import (
 )
 
 var (
-	AccessToken  = "access_token"
-	RefreshToken = "refresh_token"
+	AccessToken             = "access_token"
+	RefreshToken            = "refresh_token"
+	ClientsUserAccessToken  = "ClientsUserAccessToken"
+	ClientsUserRefreshToken = "ClientsUserRefreshToken"
 )
 
 type Params struct {
