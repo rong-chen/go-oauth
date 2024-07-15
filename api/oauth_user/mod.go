@@ -1,21 +1,23 @@
 package oauth_user
 
 import (
+	"go-oauth/api/oauth_clients"
 	"go-oauth/global"
 	"time"
 )
 
 type Info struct {
-	Username     string     `json:"username" form:"username" gorm:"username" `
-	Password     string     `json:"password"  form:"password" gorm:"password"`
-	Phone        string     `json:"phone"  form:"phone" gorm:"phone"`
-	Email        string     `json:"email;not null;unique"  form:"email" gorm:"email"`
-	Nickname     string     `json:"nickname"  form:"nickname" gorm:"nickname"`
-	Avatar       string     `json:"avatar"  form:"avatar" gorm:"avatar"`
-	Disabled     bool       `json:"disabled" form:"disabled" gorm:"disabled"`
-	Sex          string     `json:"sex"  form:"sex" gorm:"sex"`
-	Birthday     int        `json:"birthday"  form:"birthday" gorm:"birthday"`
-	DisabledTime *time.Time `json:"disabledTime" form:"disabledTime" gorm:"disabledTime"`
+	Username     string                       `json:"username" form:"username" gorm:"username" `
+	Password     string                       `json:"password"  form:"password" gorm:"password"`
+	Phone        string                       `json:"phone"  form:"phone" gorm:"phone"`
+	Email        string                       `json:"email;not null;unique"  form:"email" gorm:"email"`
+	Nickname     string                       `json:"nickname"  form:"nickname" gorm:"nickname"`
+	Avatar       string                       `json:"avatar"  form:"avatar" gorm:"avatar"`
+	Disabled     bool                         `json:"disabled" form:"disabled" gorm:"disabled"`
+	Sex          string                       `json:"sex"  form:"sex" gorm:"sex"`
+	Birthday     int                          `json:"birthday"  form:"birthday" gorm:"birthday"`
+	DisabledTime *time.Time                   `json:"disabledTime" form:"disabledTime" gorm:"disabledTime"`
+	OAuthClients []oauth_clients.OAuthClients `gorm:"foreignKey:UserId"`
 	global.Model
 }
 

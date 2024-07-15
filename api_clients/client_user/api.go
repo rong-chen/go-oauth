@@ -32,7 +32,6 @@ func Login(c *gin.Context) {
 	resp := make(map[string]interface{})
 	resp["rToken"] = rToken
 	resp["aToken"] = aToken
-	resp["userInfo"] = userInfo
 	c.JSON(200, global.BackResp(200, "登录成功", resp))
 }
 

@@ -6,6 +6,8 @@ import (
 	"go-oauth/api/oauth_clients"
 	"go-oauth/api/oauth_user"
 	"go-oauth/api_clients/client_user"
+	"go-oauth/api_clients/clients_manage"
+	"go-oauth/api_clients/clients_token"
 	"go-oauth/api_resource/resource_user"
 	"go-oauth/common/email"
 	"net/http"
@@ -24,6 +26,8 @@ var RouterList = []RouterInterface{
 	new(resource_user.Router),
 	new(email.Router),
 	new(client_user.Router),
+	new(clients_manage.Router),
+	new(clients_token.Router),
 }
 
 func InitRouter(e *gin.Engine) {

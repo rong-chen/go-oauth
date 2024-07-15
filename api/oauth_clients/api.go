@@ -9,11 +9,14 @@ import (
 
 func Created(c *gin.Context) {
 	var clientParams OAuthClients
+	userId, _ := c.Get("user_id")
+
 	err := c.BindJSON(&clientParams)
 	if err != nil {
 		c.JSON(200, global.BackResp(400, "参数错误", nil))
 		return
 	}
+	clientParams.UserId = userId.(string)
 	clientParams.ClientId, err = uuid.NewUUID()
 	clientParams.Id, err = uuid.NewUUID()
 	if err != nil {

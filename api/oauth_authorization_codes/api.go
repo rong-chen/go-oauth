@@ -31,12 +31,13 @@ func ValidAuthorizationCode(c *gin.Context) {
 		return
 	}
 
-	//查询code，并且判断是否过期
+	//查询code，并且判断code是否过期
 	row := FindCodeRow("authorization_code", data.Code)
 	if row.Id == uuid.Nil {
 		c.JSON(200, global.BackResp(400, "参数错误", ""))
 		return
 	}
+
 	nowTime := time.Now()
 	if !row.ExpiresAt.After(nowTime) {
 		c.JSON(200, global.BackResp(400, "参数过期", ""))
